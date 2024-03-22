@@ -23,7 +23,7 @@ set(VERSION_SHORT "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 
 configure_file(${CMAKE_SOURCE_DIR}/cmake/version.cpp.in
-                ${CMAKE_SOURCE_DIR}/version.cpp)
+                ${CMAKE_CURRENT_BINARY\_DIR}/version.cpp)
 set(VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
 
 project(ExampleProject VERSION ${VERSION_SHORT})
