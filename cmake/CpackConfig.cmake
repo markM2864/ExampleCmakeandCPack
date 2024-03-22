@@ -1,0 +1,21 @@
+set(CPACK_GENERATOR "NSIS")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Example")
+set(CPACK_PACKAGE_VENDOR "Myself")
+set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
+set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL OFF)
+set(CPACK_NSIS_MODIFY_PATH ON)
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "ExamplePackage\\\\Example")
+set(CPACK_PACKAGE_EXECUTABLES "ExamplePackage; Example Package")
+set(CPACK_NSIS_DISPLAY_NAME "Example Package")
+include(CPackComponent)
+cpack_add_install_type(Full DISPLAY_NAME "Install All Components")
+cpack_add_component(binaries
+  DISPLAY_NAME "Main executable"
+  DESCRIPTION "Example"
+  REQUIRED
+  INSTALL_TYPES Full
+)
+set(CPACK_COMPONENTS_ALL binaries)
+include(CPack)
