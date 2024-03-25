@@ -38,30 +38,34 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   include
 )
 
+if (UNIX)
+  message("Platform: Linux")
+  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+else()
 # Intended for packaging through msys2 on windows
 # Depends on your particular build configuration
-set(MSYS_BIN_DIR "C:/msys64/ucrt64/bin")
+  set(MSYS_BIN_DIR "C:/msys64/ucrt64/bin")
 
-# Just set these to which ever dlls you need for your project
-set(DLLS
-  "${MSYS_BIN_DIR}/libgcc_s_seh-1.dll"
-  "${MSYS_BIN_DIR}/libstdc++-6.dll"
-  "${MSYS_BIN_DIR}/libwinpthread-1.dll"
-)
-
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
-  install(
-    TARGETS ${PROJECT_NAME}
-    DESTINATION .
-    COMPONENT binaries
+  # Just set these to which ever dlls you need for your project
+  set(DLLS
+    "${MSYS_BIN_DIR}/libgcc_s_seh-1.dll"
+    "${MSYS_BIN_DIR}/libstdc++-6.dll"
+    "${MSYS_BIN_DIR}/libwinpthread-1.dll"
   )
 
-  install(
-    FILES
-    ${DLLS}
-    DESTINATION .
-    COMPONENT binaries
-  )
+  if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    install(
+      TARGETS ${PROJECT_NAME}
+      DESTINATION .
+      COMPONENT binaries
+    )
 
-  include(CpackConfig)
+    install(
+      FILES
+      ${DLLS}
+      DESTINATION .
+      COMPONENT binaries
+    )
+  endif()
 endif()
+include(CpackConfig)
